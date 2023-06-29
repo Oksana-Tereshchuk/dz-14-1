@@ -13,9 +13,9 @@ public class WebTablesPage extends AbstractObjects{
     private final By SalaryField = By.xpath("//input[@id='salary']");
     private final By DepartmentField = By.xpath("//input[@id='department']");
     private final By SubmitClick = By.xpath("//button[@id='submit']");
-    private final By DeleteClick = By.xpath("//span[@id='delete-record-2']");
-    private final By EmailColumn = By.xpath("//div[text()='LPirs@gmail.com']");
-    private final By EditButton = By.xpath("//div[text()='LPirs@gmail.com']/..//span[@title='Edit']");
+    private final By EditButton = By.xpath("//div[text()='Leyla']/..//span[@title='Edit']");
+
+
     public WebTablesPage(WebDriver driver) {
         super(driver);
     }
@@ -38,19 +38,22 @@ public class WebTablesPage extends AbstractObjects{
         waitTillAppears(SubmitClick);
         getElement(SubmitClick).click();
     }
-    public String getEmail() {
+    public String getEditedFirstName(String editedName) {
+        By EditedName = By.xpath("//div[text()='"+editedName+"']");
+        return getElement(EditedName).getText();
+    }
+    public String getEmail(String email) {
+        By EmailColumn = By.xpath("//div[text()='"+email+"']");
         return getElement(EmailColumn).getText();
     }
+
     public void getEditElement()
     {
         getElement(EditButton).click();
     }
-    public void getEditName()
-    {
-        getElement(FirstNameField).clear();
-    }
     @Step("Edit fields")
     public WebTablesPage EditForm(String firstName){
+        getElement(FirstNameField).clear();
         getElement(FirstNameField).sendKeys(firstName);
         return new WebTablesPage(driver);
     }
