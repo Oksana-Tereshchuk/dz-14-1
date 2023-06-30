@@ -1,27 +1,35 @@
 package pageobjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class ButtonsPage extends AbstractObjects
 {
-    private final By Buttons = By.xpath("//span[text()='Buttons']");
-    private final By ClickMe = By.xpath("//button[text()='Click Me']");
-    private final By title = By.xpath("//p[@id='dynamicClickMessage']");
+    private final By buttons = By.xpath("//span[text()='Buttons']");
+    private final By clickMe = By.xpath("//button[text()='Click Me']");
+    private final By dynamicClickMessage = By.xpath("//p[@id='dynamicClickMessage']");
     public ButtonsPage(WebDriver driver) {
         super(driver);
     }
-    public void ButtonsElement ()
-    {
-        getElement(Buttons).click();
+    private WebElement scrollToElement(WebElement element) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        return element;
     }
-    public void ClickMeElement ()
+    public void clickOnButtonsElement ()
     {
-        waitTillAppears(ClickMe);
-        getElement(ClickMe).click();
+        WebElement buttonElement= getElement(buttons);
+        scrollToElement(buttonElement);
+        buttonElement.click();
+    }
+    public void clickOnClickMeElement ()
+    {
+        waitTillAppears(clickMe);
+        getElement(clickMe).click();
     }
     public String getClickMeText() {
-        waitTillAppears(title);
-        return getElement(title).getText();
+        waitTillAppears(dynamicClickMessage);
+        return getElement(dynamicClickMessage).getText();
     }
 }

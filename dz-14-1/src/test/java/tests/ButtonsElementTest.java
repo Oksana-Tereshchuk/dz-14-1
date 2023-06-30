@@ -10,12 +10,9 @@ public class ButtonsElementTest extends BaseTest{
             driver.get("https://demoqa.com/elements");
             ButtonsPage button =new ButtonsPage(driver);
 
-        button.ButtonsElement();
-
-        button.ClickMeElement();
-
-      String ClickMeText = button.getClickMeText();
-
+        button.clickOnButtonsElement();
+        button.clickOnClickMeElement();
+        String ClickMeText = button.getClickMeText();
         System.out.println("ClickMe text:" + ClickMeText );
         Assert.assertEquals(ClickMeText, "You have done a dynamic click");
 

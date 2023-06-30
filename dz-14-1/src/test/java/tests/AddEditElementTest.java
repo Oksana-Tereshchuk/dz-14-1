@@ -2,28 +2,29 @@ package tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import pageobjects.WebTablesPage;
 
 public class AddEditElementTest extends BaseTest {
 
     @Test
-    public void OpenWebTablePage() {
+    public void editElementTest() {
         driver.get("https://demoqa.com/webtables");
         WebTablesPage tablesPage = new WebTablesPage(driver);
 
         tablesPage.AddElement();
-        tablesPage.FillForm("Leyla","Pirs","LPirs@gmail.com","22","1000","Legal");
-        tablesPage.SubmitElement();
+        tablesPage.fillNewRecord("Leyla","Pirs","LPirs@gmail.com","22","1000","Legal");
+        tablesPage.submitRecord();
 
-        String EmailText = tablesPage.getEmail("LPirs@gmail.com");
-        Assert.assertEquals(EmailText, "LPirs@gmail.com");
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(tablesPage.rowElementXpath("LPirs@gmail.com"));
 
-        tablesPage.getEditElement();
+        tablesPage.editButtonXpath("Leyla");
         tablesPage.EditForm("Kiki");
-        tablesPage.SubmitElement();
+        tablesPage.submitRecord();
 
-        String editedFirstName = tablesPage.getEditedFirstName("Kiki");
-        Assert.assertEquals(editedFirstName, "Kiki","did not find edited FirstName");
+        softAssert.assertTrue(tablesPage.rowElementXpath("Kiki"));
+        softAssert.assertAll();
 
     }
 }

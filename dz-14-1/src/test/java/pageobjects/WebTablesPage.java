@@ -13,8 +13,6 @@ public class WebTablesPage extends AbstractObjects{
     private final By SalaryField = By.xpath("//input[@id='salary']");
     private final By DepartmentField = By.xpath("//input[@id='department']");
     private final By SubmitClick = By.xpath("//button[@id='submit']");
-    private final By EditButton = By.xpath("//div[text()='Leyla']/..//span[@title='Edit']");
-
 
     public WebTablesPage(WebDriver driver) {
         super(driver);
@@ -24,7 +22,7 @@ public class WebTablesPage extends AbstractObjects{
         getElement(AddClick).click();
     }
     @Step("Fill fields")
-    public WebTablesPage FillForm(String firstName, String lastName,String email,String age,String salary,String department){
+    public WebTablesPage fillNewRecord(String firstName, String lastName,String email,String age,String salary,String department){
         getElement(FirstNameField).sendKeys(firstName);
         getElement(LastNameField).sendKeys(lastName);
         getElement(EmailField).sendKeys(email);
@@ -33,22 +31,18 @@ public class WebTablesPage extends AbstractObjects{
         getElement(DepartmentField).sendKeys(department);
         return new WebTablesPage(driver);
     }
-    public void SubmitElement ()
+    public void submitRecord()
     {
         waitTillAppears(SubmitClick);
         getElement(SubmitClick).click();
     }
-    public String getEditedFirstName(String editedName) {
-        By EditedName = By.xpath("//div[text()='"+editedName+"']");
-        return getElement(EditedName).getText();
+    public Boolean rowElementXpath(String rowValue) {
+        By EmailColumn = By.xpath("//div[text()='"+rowValue+"']");
+        return getElement(EmailColumn).isDisplayed();
     }
-    public String getEmail(String email) {
-        By EmailColumn = By.xpath("//div[text()='"+email+"']");
-        return getElement(EmailColumn).getText();
-    }
-
-    public void getEditElement()
+    public void editButtonXpath(String username)
     {
+        By EditButton = By.xpath("//div[text()='"+username+"']/..//span[@title='Edit']");
         getElement(EditButton).click();
     }
     @Step("Edit fields")

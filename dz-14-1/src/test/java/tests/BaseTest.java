@@ -20,10 +20,10 @@ public class BaseTest {
         driver.manage().window().maximize();
     }
 
-    //@AfterMethod
-    //public void cleanUp() {
-        //driver.close();
-        //driver.quit();
-    //}
+    @AfterMethod
+    public void cleanUp() {
+        driver.close();
+        driver.quit();
+    }
 
 }
